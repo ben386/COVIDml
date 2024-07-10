@@ -49,7 +49,7 @@ covidnormal.lik <- function(theta, data, lagsize, index){
   beta <- theta[(length(index) + 2):(( nvar*((lagsize*nvar) + 1) ) + (length(index) + 1))]
   
   # Error variances of the endogenous variables
-  sigma <- theta[(( nvar*((lagsize*nvar) + 1) ) + (length(index) + 1)):(( nvar*((lagsize*nvar) + 1) ) + (length(index)) + nvar)]
+  sigma <- theta[(( nvar*((lagsize*nvar) + 1) ) + (length(index) + 2)):(( nvar*((lagsize*nvar) + 1) ) + (length(index) + 1) + nvar)]
   
   
   
