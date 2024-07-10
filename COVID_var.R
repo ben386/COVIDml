@@ -11,8 +11,10 @@ covid_var <- function(data, lags, var_type = "const", covidindex) {
   beta0 <- purrr::map(coefficients(simplevar), ~ { .x %>% as_tibble() %>% dplyr::slice( c(n(), (1:(n() - 1))) ) %>% dplyr::select(1) })
   
   sigma0 <- diag(t(residuals(simplevar)) %*% residuals(simplevar)) * (1/nrow(data))
+
+  rho0 <- 0.8
   
-  theta <- c(s0, do.call(rbind.data.frame, beta0) %>% as.matrix, sigma0)
+  theta <- c(s0, rho0, do.call(rbind.data.frame, beta0) %>% as.matrix, sigma0)
   
   
   gls <- optim(theta, covidnormal.lik, method = "Nelder-Mead", hessian = F, data = data, lagsize = lags, index = covidindex)
